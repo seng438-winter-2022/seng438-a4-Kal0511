@@ -264,16 +264,70 @@ public class DataUtilitiesTest {
 	@Test
 	/**
 	 * A method for testing the equal(double[][]a, double[][]b) method when the
-	 * inputs have unequal length.
+	 * inputs have unequal row length.
 	 */
-	public void equalForInequalLengths() {
-		double[][] array1 = new double[5][5];
+	public void equalForInequalRowLengths() {
+		double[][] array1 = new double[5][10];
 		double[][] array2 = new double[10][10];
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				if (j < 5 && i < 5)
+				if (i < 5)
 					array1[i][j] = i * 1.5 + j;
 				array2[i][j] = i * 1.5 + j;
+			}
+		}
+		assertEquals(DataUtilities.equal(array1, array2), false);
+	}
+	
+	@Test
+	/**
+	 * A method for testing the equal(double[][]a, double[][]b) method when the
+	 * inputs have unequal column length.
+	 */
+	public void equalForInequalColumnLengths() {
+		double[][] array1 = new double[10][5];
+		double[][] array2 = new double[10][10];
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (j < 5)
+					array1[i][j] = i * 1.5 + j;
+				array2[i][j] = i * 1.5 + j;
+			}
+		}
+		assertEquals(DataUtilities.equal(array1, array2), false);
+	}
+	
+	@Test
+	/**
+	 * A method for testing the equal(double[][]a, double[][]b) method when the
+	 * inputs have unequal row length And Unequal Data.
+	 */
+	public void equalForInequalRowLengthsAndUnequalData() {
+		double[][] array1 = new double[5][10];
+		double[][] array2 = new double[10][10];
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (i < 5)
+					array1[i][j] = i * 1.5 + j;
+				array2[i][j] = i * 1.4 + j;
+			}
+		}
+		assertEquals(DataUtilities.equal(array1, array2), false);
+	}
+	
+	@Test
+	/**
+	 * A method for testing the equal(double[][]a, double[][]b) method when the
+	 * inputs have unequal column length And Unequal Data.
+	 */
+	public void equalForInequalColumnLengthsAndUnequalData() {
+		double[][] array1 = new double[10][5];
+		double[][] array2 = new double[10][10];
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (j < 5)
+					array1[i][j] = i * 1.5 + j;
+				array2[i][j] = i * 1.4 + j;
 			}
 		}
 		assertEquals(DataUtilities.equal(array1, array2), false);

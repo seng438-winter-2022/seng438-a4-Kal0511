@@ -1,0 +1,339 @@
+{
+  "id": "c71625b8-1769-48c7-8949-499a7e3f6d0d",
+  "version": "2.0",
+  "name": "sportchek",
+  "url": "https://www.sportchek.ca",
+  "tests": [{
+    "id": "026f8ba9-d3d6-410b-acaf-5ebed00129da",
+    "name": "Valid Register",
+    "commands": [{
+      "id": "263d2e48-642c-4f5e-a5d8-812609727707",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9fee293e-e867-4e2d-bf9e-48ef868623f1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "945x1020",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c5620785-5808-4e00-a100-63e6dafb629f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.page-header__account-button",
+      "targets": [
+        ["css=.page-header__account-button", "css:finder"],
+        ["xpath=//div[4]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ead6bc1e-41ea-444a-918e-3eae492d017c",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.header-account-icon__dropdown-item-sign-in",
+      "targets": [
+        ["css=.header-account-icon__dropdown-item-sign-in", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f76b42fb-48d1-46ed-add1-67517c3e2ecb",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.header-account-icon__dropdown-item-sign-in",
+      "targets": [
+        ["css=.header-account-icon__dropdown-item-sign-in", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '#')])[4]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "da776b51-8ad1-4bb9-9a06-5f760b0bea00",
+      "comment": "",
+      "command": "click",
+      "target": "css=.header-account-icon__dropdown-item-register",
+      "targets": [
+        ["css=.header-account-icon__dropdown-item-register", "css:finder"],
+        ["xpath=//a[contains(text(),'Register')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '#')])[5]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "74e9b58d-abc5-43db-ad15-e35f054d50d0",
+      "comment": "",
+      "command": "click",
+      "target": "css=#register-site-login .gigya-input-text",
+      "targets": [
+        ["css=#register-site-login .gigya-input-text", "css:finder"],
+        ["xpath=(//input[@name='email'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='register-site-login']/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[2]/div/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a9b2c8eb-2ce4-483e-b5fd-8ce343d1cdec",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=(//input[@name='email'])[2]",
+      "targets": [
+        ["css=.gigya-valid", "css:finder"],
+        ["xpath=(//input[@name='email'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='register-site-login']/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[2]/div/div/div/input", "xpath:position"]
+      ],
+      "value": "kal@gmail.com"
+    }, {
+      "id": "36e77732-7bbf-4138-9d64-b9d7316b6441",
+      "comment": "",
+      "command": "click",
+      "target": "css=.pwd-field-parent-container > .gigya-input-password",
+      "targets": [
+        ["css=.pwd-field-parent-container > .gigya-input-password", "css:finder"],
+        ["xpath=(//input[@name='password'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='password-row']/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[3]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f62c6c0c-1228-4cc9-b7f8-fe8dcd64518b",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=(//input[@name='password'])[3]",
+      "targets": [
+        ["css=.gigya-valid:nth-child(2)", "css:finder"],
+        ["xpath=(//input[@name='password'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='password-row']/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[3]/div/div/input", "xpath:position"]
+      ],
+      "value": "Ab12345!"
+    }, {
+      "id": "60b4e43e-5caf-4e8b-9c5e-f551a0d64bb3",
+      "comment": "",
+      "command": "click",
+      "target": "id=gigya-password-90574179967216050",
+      "targets": [
+        ["id=gigya-password-90574179967216050", "id"],
+        ["css=#gigya-password-90574179967216050", "css:finder"],
+        ["xpath=//input[@id='gigya-password-90574179967216050']", "xpath:attributes"],
+        ["xpath=//div[@id='password-row']/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[3]/div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1144ab95-03a6-43fb-b39a-bf8ab31016d2",
+      "comment": "",
+      "command": "type",
+      "target": "id=gigya-password-90574179967216050",
+      "targets": [
+        ["id=gigya-password-90574179967216050", "id"],
+        ["css=#gigya-password-90574179967216050", "css:finder"],
+        ["xpath=//input[@id='gigya-password-90574179967216050']", "xpath:attributes"],
+        ["xpath=//div[@id='password-row']/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[3]/div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "Ab12345!"
+    }, {
+      "id": "f5344ee4-14d9-4e8a-816d-5edbd0bf70b9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ciam-consent-visible > .gigya-label",
+      "targets": [
+        ["css=.ciam-consent-visible > .gigya-label", "css:finder"],
+        ["xpath=//div[@id='register-site-login']/div[5]/label", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[5]/label", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9568b238-c449-470d-9e72-45287c7524b0",
+      "comment": "",
+      "command": "click",
+      "target": "css=#register-site-login .gigya-input-submit",
+      "targets": [
+        ["css=#register-site-login .gigya-input-submit", "css:finder"],
+        ["xpath=//input[@value='CREATE TRIANGLE ID']", "xpath:attributes"],
+        ["xpath=//div[@id='register-site-login']/div[10]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[10]/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "351e8a21-82d7-46e8-b1e4-b00637eac3bd",
+    "name": "Invalid Register",
+    "commands": [{
+      "id": "15f0525f-08d4-4c55-a0e7-81b43dda3922",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e6309fc1-0064-40d0-bfb5-5149ac6fe49f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "974x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "81fdeddc-38db-427e-ba6a-19652d30b177",
+      "comment": "",
+      "command": "click",
+      "target": "css=.page-header__account-button",
+      "targets": [
+        ["css=.page-header__account-button", "css:finder"],
+        ["xpath=//div[4]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5f0f2668-4144-4340-ae59-8138f070f50f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.header-account-icon__dropdown-item-register",
+      "targets": [
+        ["css=.header-account-icon__dropdown-item-register", "css:finder"],
+        ["xpath=//a[contains(text(),'Register')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '#')])[5]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "98e8402f-3da7-452c-a1c1-876da420b992",
+      "comment": "",
+      "command": "click",
+      "target": "css=#register-site-login .gigya-input-text",
+      "targets": [
+        ["css=#register-site-login .gigya-input-text", "css:finder"],
+        ["xpath=(//input[@name='email'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='register-site-login']/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[2]/div/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8fbe261c-4d50-4880-83ff-c480903383b7",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=(//input[@name='email'])[2]",
+      "targets": [
+        ["css=.gigya-valid", "css:finder"],
+        ["xpath=(//input[@name='email'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='register-site-login']/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[2]/div/div/div/input", "xpath:position"]
+      ],
+      "value": "kal@gmail.com"
+    }, {
+      "id": "7ba21fa6-3591-4d18-9539-10f333e9fea0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.pwd-field-parent-container > .gigya-input-password",
+      "targets": [
+        ["css=.pwd-field-parent-container > .gigya-input-password", "css:finder"],
+        ["xpath=(//input[@name='password'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='password-row']/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[3]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fd1eec9f-ba7d-4bd6-867d-dfb1db2331db",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=(//input[@name='password'])[3]",
+      "targets": [
+        ["css=.gigya-error", "css:finder"],
+        ["xpath=(//input[@name='password'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='password-row']/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[3]/div/div/input", "xpath:position"]
+      ],
+      "value": "12345678"
+    }, {
+      "id": "be5e7710-41b1-4cc4-9d60-c7d1636b3c66",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=gigya-password-90574179967216050",
+      "targets": [
+        ["id=gigya-password-90574179967216050", "id"],
+        ["css=#gigya-password-90574179967216050", "css:finder"],
+        ["xpath=//input[@id='gigya-password-90574179967216050']", "xpath:attributes"],
+        ["xpath=//div[@id='password-row']/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[3]/div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "87ad0346-f8b7-4d1d-a4ca-3918d315f544",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.lt-col",
+      "targets": [
+        ["css=.lt-col", "css:finder"],
+        ["xpath=//div[@id='password-row']/div/div/div[4]/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff981579-c8f3-48b2-9809-886541129f88",
+      "comment": "",
+      "command": "click",
+      "target": "id=password-row",
+      "targets": [
+        ["id=password-row", "id"],
+        ["css=#password-row", "css:finder"],
+        ["xpath=//div[@id='password-row']", "xpath:attributes"],
+        ["xpath=//div[@id='register-site-login']/div[3]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c8e11e3-2535-42cb-a239-918195229f3c",
+      "comment": "",
+      "command": "type",
+      "target": "id=gigya-password-90574179967216050",
+      "targets": [
+        ["id=gigya-password-90574179967216050", "id"],
+        ["css=#gigya-password-90574179967216050", "css:finder"],
+        ["xpath=//input[@id='gigya-password-90574179967216050']", "xpath:attributes"],
+        ["xpath=//div[@id='password-row']/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[3]/div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "12345678"
+    }, {
+      "id": "1220c6f0-5fe5-4c00-96bc-b01c03b097f7",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='register-site-login']/div[5]/label/span",
+      "targets": [
+        ["css=.ciam-consent-visible .gigya-label-text", "css:finder"],
+        ["xpath=//div[@id='register-site-login']/div[5]/label/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[5]/label/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9a5146cb-277c-436d-a32f-8c13662f35ac",
+      "comment": "",
+      "command": "click",
+      "target": "css=#register-site-login .gigya-input-submit",
+      "targets": [
+        ["css=#register-site-login .gigya-input-submit", "css:finder"],
+        ["xpath=//input[@value='CREATE TRIANGLE ID']", "xpath:attributes"],
+        ["xpath=//div[@id='register-site-login']/div[10]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/form/div[2]/div[3]/div[10]/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "e7a2ea93-3a9c-444a-ab8a-706955c42295",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["026f8ba9-d3d6-410b-acaf-5ebed00129da"]
+  }],
+  "urls": ["https://www.sportchek.ca/"],
+  "plugins": []
+}
