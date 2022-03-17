@@ -387,6 +387,57 @@ public class DataUtilitiesTest {
 		KeyedValues result = DataUtilities.getCumulativePercentages(values);
 		assertEquals("Empty input results in an empty output", 0, result.getItemCount());
 	}
+	
+	@Test
+	/**
+	 * Method to test getCumulativePerentages when input is null.
+	 */
+	public void getCumulativePercentagesForNull() {
+		boolean exception = false;
+		try {
+			KeyedValues result = DataUtilities.getCumulativePercentages(null);
+		}
+		catch(IllegalArgumentException e)
+		{
+			exception = true;
+		}
+		assertEquals(exception, true);
+	}
+	 
+	@Test
+	/**
+	 * A method for testing the getCumulativePercentages(KeyedValues data) method
+	 * when the inputs are null.
+	 */
+	public void getCumulativePercentagesForNullValues() {
+		KeyedValues values = mockingContext.mock(KeyedValues.class);
+		mockingContext.checking(new Expectations() {
+			{
+				allowing(values).getItemCount();
+				will(returnValue(3));
+
+				allowing(values).getValue(0);
+				will(returnValue(2));
+				allowing(values).getKey(0);
+				will(returnValue(0));
+
+				allowing(values).getValue(1);
+				will(returnValue(1));
+				allowing(values).getKey(1);
+				will(returnValue(1));
+
+				allowing(values).getValue(2);
+				will(returnValue(null));
+				allowing(values).getKey(2);
+				will(returnValue(2));
+			}
+		});
+
+		KeyedValues result = DataUtilities.getCumulativePercentages(values);
+		assertEquals("First index has 2 thus 2/3 result should be 0.66", (2.0/3), result.getValue(0));
+		assertEquals("Second index has 1 thus 3/3 result should be 1", 1.0, result.getValue(1));
+		assertEquals("Third index has null, thus has 1.0", 1.0, result.getValue(2));
+	}
 
 	// calculateColumnTotal
 	
@@ -598,8 +649,142 @@ public class DataUtilitiesTest {
 		assertArrayEquals(result, array1);
 		assertNotEquals(array2, result);
 	}
+	
+	// calculateRowTotal validColumns
+	
+	/**
+	 * A method for testing the calculateRowTotal with valid columns argument
+	 * the input has a null value among them
+	 */
+	@Test
+	public void calculateRowTotalValidColumnsForNullValue() {
+		int[] validColumns = {0,2};
+		Values2D values = mockingContext.mock(Values2D.class);
+		mockingContext.checking(new Expectations() {
+			{
+				oneOf(values).getColumnCount();
+				will(returnValue(3));
+				oneOf(values).getValue(0, 0);
+				will(returnValue(null));
+				oneOf(values).getValue(0, 1);
+				will(returnValue(2.5));
+				oneOf(values).getValue(0, 2);
+				will(returnValue(1.5));
 
-	// calculateRowTotal
+			}
+		});
+		double result = DataUtilities.calculateRowTotal(values, 0, validColumns);
+		assertEquals(1.5, result, .01d);
+	}
+	
+	@Test
+	/**
+	 * A method for testing the calculateRowTotal(Values2D data, int row) method
+	 * when there are two columns with a null value and the result is positive.
+	 */
+	public void calculateRowTotalValidColumnsForNullInput() {
+		int[] validColumns = {0,2};
+		boolean exception = false;
+		try {
+			double result = DataUtilities.calculateRowTotal(null, 0, validColumns);
+		}
+		catch(IllegalArgumentException e)
+		{
+			exception = true;
+		}
+		assertEquals("First column has value 2.5 which results in 2.5", exception, true);
+	}
+	
+	@Test
+	/**
+	 * A method for testing the calculateRowTotal(Values2D data, int row, int[] validColumns) method
+	 * when there are two columns, but only considering the first and the result is positive.
+	 */
+	public void calculateRowTotalValidColumnsForTwoValues() {
+		int[] validColumns = {0};
+		Values2D values = mockingContext.mock(Values2D.class);
+		mockingContext.checking(new Expectations() {
+			{
+				oneOf(values).getColumnCount();
+				will(returnValue(2));
+				oneOf(values).getValue(0, 0);
+				will(returnValue(1.25));
+				oneOf(values).getValue(0, 1);
+				will(returnValue(2.5));
+			}
+		});
+		double result = DataUtilities.calculateRowTotal(values, 0, validColumns);
+		assertEquals("First column has value 1.25 which results in 1.25", 1.25, result, .01d);
+	}
+	
+	@Test
+	/**
+	 * A method for testing the calculateRowTotal(Values2D data, int row, int[] validColumns) method
+	 * when there are five columns, but not considering the first or third and the result is positive.
+	 */
+	public void calculateRowTotalValidColumnsForFiveValues() {
+		int[] validColumns = {1, 3, 4};
+		Values2D values = mockingContext.mock(Values2D.class);
+		mockingContext.checking(new Expectations() {
+			{
+				oneOf(values).getColumnCount();
+				will(returnValue(5));
+				oneOf(values).getValue(0, 0);
+				will(returnValue(1.25));
+				oneOf(values).getValue(0, 1);
+				will(returnValue(4.25));
+				oneOf(values).getValue(0, 2);
+				will(returnValue(2.5));
+				oneOf(values).getValue(0, 3);
+				will(returnValue(1.0));
+				oneOf(values).getValue(0, 4);
+				will(returnValue(0.25));
+			}
+		});
+		double result = DataUtilities.calculateRowTotal(values, 0, validColumns);
+		assertEquals("Valid columns have values 4.25, 1, and 0.25 which results in 5.5", 5.5, result, .01d);
+	}
+	
+	
+	@Test
+	/**
+	 * A method for testing the calculateRowTotal(Values2D data, int row, int[] validColumns) method
+	 * when there are two columns, but only considering the first and the result is positive.
+	 */
+	public void calculateRowTotalValidColumnsForValidColumnsOutOfRange() {
+		int[] validColumns = {2};
+		Values2D values = mockingContext.mock(Values2D.class);
+		mockingContext.checking(new Expectations() {
+			{
+				oneOf(values).getColumnCount();
+				will(returnValue(2));
+				oneOf(values).getValue(0, 0);
+				will(returnValue(1.25));
+				oneOf(values).getValue(0, 1);
+				will(returnValue(2.5));
+			}
+		});
+		double result = DataUtilities.calculateRowTotal(values, 0, validColumns);
+		assertEquals("No valid columns, result is 0", 0, result, .01d);
+	}
+
+	// calculateRowTotal (2 parameters)
+	@Test
+	/**
+	 * A method for testing the calculateRowTotal(Values2D data, int row) method
+	 * when there are two columns with a null value and the result is positive.
+	 */
+	public void calculateRowTotalForNullInput() {
+		boolean exception = false;
+		try {
+			double result = DataUtilities.calculateRowTotal(null, 0);
+		}
+		catch(IllegalArgumentException e)
+		{
+			exception = true;
+		}
+		assertEquals("First column has value 2.5 which results in 2.5", exception, true);
+	}
 	
 	@Test
 	/**
@@ -619,7 +804,7 @@ public class DataUtilitiesTest {
 			}
 		});
 		double result = DataUtilities.calculateRowTotal(values, 0);
-		assertEquals("First comlum has value 2.5 which results in 2.5", 2.5, result, .01d);
+		assertEquals("First column has value 2.5 which results in 2.5", 2.5, result, .01d);
 	}
 
 	@Test
@@ -640,7 +825,7 @@ public class DataUtilitiesTest {
 			}
 		});
 		double result = DataUtilities.calculateRowTotal(values, 0);
-		assertEquals("First comlum has values 1.25 and 2.5 which results in 3.75", 3.75, result, .01d);
+		assertEquals("First column has values 1.25 and 2.5 which results in 3.75", 3.75, result, .01d);
 	}
 
 	@Test
@@ -663,7 +848,7 @@ public class DataUtilitiesTest {
 			}
 		});
 		double result = DataUtilities.calculateRowTotal(values, 0);
-		assertEquals("First comlum has values -5.5, 1.25 and 2.5 which resultsin -1.75", -1.75, result, .01d);
+		assertEquals("First column has values -5.5, 1.25 and 2.5 which resultsin -1.75", -1.75, result, .01d);
 	}
 
 	@Test
@@ -752,32 +937,4 @@ public class DataUtilitiesTest {
 		double result = DataUtilities.calculateColumnTotal(values, 0, validRows);
 		assertEquals(1.5, result, .01d);
 	}
-	
-	// calculateRowTotal validColumns
-	
-	/**
-	 * A method for testing the calculateRowTotal with valid columns argument
-	 * the input has a null value among them
-	 */
-	@Test
-	public void calculateRowTotalValidColumnsForNullValue() {
-		int[] validColumns = {0,2};
-		Values2D values = mockingContext.mock(Values2D.class);
-		mockingContext.checking(new Expectations() {
-			{
-				oneOf(values).getColumnCount();
-				will(returnValue(3));
-				oneOf(values).getValue(0, 0);
-				will(returnValue(null));
-				oneOf(values).getValue(0, 1);
-				will(returnValue(2.5));
-				oneOf(values).getValue(0, 2);
-				will(returnValue(1.5));
-
-			}
-		});
-		double result = DataUtilities.calculateRowTotal(values, 0, validColumns);
-		assertEquals(1.5, result, .01d);
-	}
-	
-}
+};
