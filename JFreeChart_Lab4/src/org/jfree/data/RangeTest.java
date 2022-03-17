@@ -451,6 +451,12 @@ public class RangeTest {
 	}
 
 	@Test
+	public void intersectsOutOnLower() {
+		Range test = new Range(5, 10);
+		assertEquals(test.intersects(0, 5), false);
+	}
+	
+	@Test
 	/**
 	 * A method that tests intersects when the intersect range to goes from inside
 	 * to outside the range
