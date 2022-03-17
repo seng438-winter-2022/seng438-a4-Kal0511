@@ -41,7 +41,7 @@ public class RangeTest {
 		}
 		assertEquals(exception, true);
 	}
-
+	
 	// getCentralValue
 
 	@Test
@@ -412,6 +412,17 @@ public class RangeTest {
 		assertEquals(test.equals(result), true);
 	}
 
+	// shiftWithNoZeroCrossing
+	/**
+	 * A method that tests the shift method when the test range is less than 1
+	 */
+	@Test
+	public void siftWithNoZeroCrossingNorm() {
+		Range test = new Range(0.2, 0.5);
+		Range result = new Range(1.2, 1.5);
+		assertEquals(Range.shift(test, 1, false), result);
+	}
+	
 	// CombineIgnoringNaN
 
 	@Test
@@ -448,12 +459,58 @@ public class RangeTest {
 	public void intersectsOutIn() {
 		Range test = new Range(5, 10);
 		assertEquals(test.intersects(0, 7), true);
+		assertEquals(new Range(5, 10), test);
 	}
-
+	
 	@Test
+	/*
+	 * A method that tests intersects() to make sure that intersects
+	 * does not change the input range.
+	 */
+	public void intersectsLowerRangeDoesNotChange() {
+		Range test = new Range(5, 10);
+		test.intersects(0, 7);
+		assertEquals(new Range(5, 10), test);
+	}
+	
+	@Test
+	/*
+	 * A method that tests intersects() to make sure that intersects
+	 * does not change the input range.
+	 */
+	public void intersectsUpperRangeDoesNotChange() {
+		Range test = new Range(5, 10);
+		test.intersects(7, 15);
+		assertEquals(new Range(5, 10), test);
+	}
+	
+	@Test
+	/*
+	 * A method that tests intersects() to test when the test value is on the upper
+	 * bound on the range.
+	 */
+	public void intersectsOutOnUpper() {
+		Range test = new Range(5, 10);
+		assertEquals(test.intersects(10, 15), false);
+	}
+	
+	@Test
+	/*
+	 * A method that tests intersects() to test when the test value is on the lower
+	 * bound of the range.
+	 */
 	public void intersectsOutOnLower() {
 		Range test = new Range(5, 10);
 		assertEquals(test.intersects(0, 5), false);
+	}
+	
+	@Test
+	/*
+	 * A method that tests intersects() when the input values are equal.
+	 */
+	public void intersectsSameValues() {
+		Range test = new Range(5, 10);
+		assertEquals(test.intersects(7, 7), true);
 	}
 	
 	@Test
@@ -518,6 +575,17 @@ public class RangeTest {
 		assertEquals(test.intersects(intersect), true);
 	}
 
+	@Test
+	/**
+	 * A method that tests intersects(Range range) when the intersect range does
+	 * not intersect the test range
+	 */
+	public void intersectsRangeFalse() {
+		Range test = new Range(5, 10);
+		Range intersect = new Range(1, 3);
+		assertEquals(test.intersects(intersect), false);
+	}
+	
 	// combine IgnoringNaN(Range range1, Range range2)
 	/**
 	 * A method testing the combineIgnoringNaN with ranges that intersect
@@ -645,7 +713,7 @@ public class RangeTest {
 		assertEquals("Combine initialized NaN range with a initialized NaN range", expected.getLowerBound(), result.getLowerBound(),0.0001);
 		assertEquals("Combine initialized NaN range with a initialized NaN range", expected.getUpperBound(), result.getUpperBound(),0.0001);
 	}
-
+	
 	// expandToInclude(Range range, double value)
 	/**
 	 * A method testing expandToInclude with the value above the range
@@ -664,8 +732,8 @@ public class RangeTest {
 	 */
 	public void expandToIncludeBelow() {
 		Range rang = new Range(5, 10);
-		Range result = Range.expandToInclude(rang, 0);
-		Range expected = new Range(0, 10);
+		Range result = Range.expandToInclude(rang, 1);
+		Range expected = new Range(1, 10);
 		assertEquals("expandToInclude with value below range", expected, result);
 	}
 
@@ -743,8 +811,8 @@ public class RangeTest {
 		assertEquals("expand with positive values", expected, result);
 	}
 
-	// shift(Range base, double delta)
 	
+	// shift(Range base, double delta)
 
 	@Test
 	public void shiftNull() {
@@ -819,5 +887,4 @@ public class RangeTest {
 		Range rang = new Range(5, 10);
 		assertEquals(rang.toString(),"Range[" + 5.0 + "," + 10.0 + "]");
 	}
-
 }
