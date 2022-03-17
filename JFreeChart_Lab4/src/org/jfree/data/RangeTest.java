@@ -36,7 +36,7 @@ public class RangeTest {
 		boolean exception = false;
 		try {
 			new Range(5, -10);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			exception = true;
 		}
 		assertEquals(exception, true);
@@ -691,15 +691,43 @@ public class RangeTest {
 	 * moving up
 	 */
 	@Test
+	public void expandNull() {
+		boolean testResult = false;
+		try {
+			Range.expand(null, 0.05, 0.05);
+		} catch (IllegalArgumentException e) {
+			testResult = true;
+		} finally {
+			assertEquals("Expand from null results in an error", true, testResult);
+		}
+	}
+	
+	/**
+	 * A method testing expand with the lower bound moving down and the upper bound
+	 * moving up
+	 */
+	@Test
 	public void expandEqual() {
 		Range rang = new Range(5, 10);
 		Range result = Range.expand(rang, 0.05, 0.05);
 		Range expected = new Range(4.75, 10.25);
 		assertEquals("expand with equal margins", expected, result);
 	}
+	
+	/**
+	 * A method testing expand with the lower bound moving down and the upper bound
+	 * moving up at different rate
+	 */
+	@Test
+	public void expandChangeAtDifferentRate() {
+		Range rang = new Range(5, 10);
+		Range result = Range.expand(rang, 0.05, 0.15);
+		Range expected = new Range(4.75, 10.75);
+		assertEquals("expand with unequal margins", expected, result);
+	}
 
 	/**
-	 * A method testing expand with the lowerbound moving higher than the upperbound
+	 * A method testing expand with the lower bound moving higher than the upper bound
 	 */
 	@Test
 	public void expandLowerBecomesBigger() {
@@ -710,6 +738,20 @@ public class RangeTest {
 	}
 
 	// shift(Range base, double delta)
+	
+
+	@Test
+	public void shiftNull() {
+		boolean testResult = false;
+		try {
+			Range.shift(null, 5);
+		} catch (IllegalArgumentException e) {
+			testResult = true;
+		} finally {
+			assertEquals("Shift from null results in an error", true, testResult);
+		}
+	}
+	
 	/**
 	 * A method testing shift which used shift(Range base, double delta, boolean
 	 * allowZeroCrossing) to complete.
@@ -723,6 +765,19 @@ public class RangeTest {
 	}
 
 	// scale(Range base, double factor)
+	
+	@Test
+	public void scaleNull() {
+		boolean testResult = false;
+		try {
+			Range.scale(null, 2);
+		} catch (IllegalArgumentException e) {
+			testResult = true;
+		} finally {
+			assertEquals("Scale from null results in an error", true, testResult);
+		}
+	}
+	
 	/**
 	 * A method testing scale with a positive scaling factor
 	 */

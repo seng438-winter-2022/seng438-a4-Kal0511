@@ -24,7 +24,7 @@ public class DataUtilitiesTest {
 		boolean testResult = false;
 		try {
 			DataUtilities.createNumberArray(null);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			testResult = true;
 		} finally {
 			assertEquals("Creating Number array from null results in an error", true, testResult);
@@ -70,7 +70,7 @@ public class DataUtilitiesTest {
 		boolean testResult = false;
 		try {
 			DataUtilities.createNumberArray2D(null);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			testResult = true;
 		} finally {
 			assertEquals("Creating 2D Number array from null results in an error", true, testResult);
@@ -495,6 +495,23 @@ public class DataUtilitiesTest {
 	}
 
 	// clone
+	
+	/**
+	 * A method for testing the clone(double [][] source) method when the input is null
+	 */
+	@Test
+	public void cloneForNullArrayTest() {
+		boolean testResult = false;
+		double[][] array = null;
+		try {
+			DataUtilities.clone(array);
+		} catch (IllegalArgumentException e) {
+			testResult = true;
+		} finally {
+			assertEquals("Cloning array from null results in an error", true, testResult);
+		}
+	}
+	
 	/**
 	 * A method for testing the clone(double [][] source) method when the row values
 	 * are null.
@@ -696,6 +713,28 @@ public class DataUtilitiesTest {
 	@Test
 	public void calculateColumnTotalValidRowsForNullValue() {
 		int[] validRows = {0,2};
+		Values2D values = mockingContext.mock(Values2D.class);
+		mockingContext.checking(new Expectations() {
+			{
+				oneOf(values).getRowCount();
+				will(returnValue(3));
+				oneOf(values).getValue(0, 0);
+				will(returnValue(null));
+				oneOf(values).getValue(1, 0);
+				will(returnValue(2.5));
+				oneOf(values).getValue(2, 0);
+				will(returnValue(1.5));
+
+			}
+		});
+		double result = DataUtilities.calculateColumnTotal(values, 0, validRows);
+		assertEquals(1.5, result, .01d);
+	}
+	
+
+	@Test
+	public void calculateColumnTotalValidRowsForInvalidInput() {
+		int[] validRows = {0,2,3};
 		Values2D values = mockingContext.mock(Values2D.class);
 		mockingContext.checking(new Expectations() {
 			{
