@@ -42,6 +42,16 @@ public class RangeTest {
 		assertEquals(exception, true);
 	}
 	
+	/**
+	 * A method that tests the constructor to make sure it does not change the input.
+	 */
+	@Test
+	public void correctInputConstructor() {
+		Range newRange = new Range(5, 10);
+		assertEquals("Input doesnt change in constructor", newRange.getLowerBound(), 5, .001d);
+		assertEquals("Input doesnt change in constructor", newRange.getUpperBound(), 10, .001d);
+	}
+	
 	// getCentralValue
 
 	@Test
@@ -463,7 +473,7 @@ public class RangeTest {
 	}
 	
 	@Test
-	/*
+	/**
 	 * A method that tests intersects() to make sure that intersects
 	 * does not change the input range.
 	 */
@@ -474,7 +484,7 @@ public class RangeTest {
 	}
 	
 	@Test
-	/*
+	/**
 	 * A method that tests intersects() to make sure that intersects
 	 * does not change the input range.
 	 */
@@ -485,7 +495,7 @@ public class RangeTest {
 	}
 	
 	@Test
-	/*
+	/**
 	 * A method that tests intersects() to test when the test value is on the upper
 	 * bound on the range.
 	 */
@@ -495,7 +505,7 @@ public class RangeTest {
 	}
 	
 	@Test
-	/*
+	/**
 	 * A method that tests intersects() to test when the test value is on the lower
 	 * bound of the range.
 	 */
@@ -505,7 +515,26 @@ public class RangeTest {
 	}
 	
 	@Test
-	/*
+	/**
+	 * A method that tests intersects() when b0 is on the lower bound and b1 is on
+	 * the upper bound.
+	 */
+	public void intersectsOnLowerIn() {
+		Range test = new Range(5, 10);
+		assertEquals(test.intersects(5, 15), true);
+	}
+	
+	@Test
+	/**
+	 * A method that tests intersects() when b1 is right above the lower bound.
+	 */
+	public void intersectsRightAboveLower() {
+		Range test = new Range(5, 10);
+		assertEquals(test.intersects(0, 6), true);
+	}
+	
+	@Test
+	/**
 	 * A method that tests intersects() when the input values are equal.
 	 */
 	public void intersectsSameValues() {
@@ -886,5 +915,38 @@ public class RangeTest {
 	public void toStringTest() {
 		Range rang = new Range(5, 10);
 		assertEquals(rang.toString(),"Range[" + 5.0 + "," + 10.0 + "]");
+	}
+	
+	// isNaNRange
+	
+	@Test
+	/**
+	 * Test isNaNRange with a non NaN range.
+	 */
+	public void isNaNRangeFalse()
+	{
+		Range rang = new Range(5, 10);
+		assertEquals(rang.isNaNRange(), false);
+	}
+	
+	@Test
+	/**
+	 * Test isNaNRange does not change the input range.
+	 */
+	public void isNaNRangeFalseNoChange()
+	{
+		Range rang = new Range(5, 10);
+		rang.isNaNRange();
+		assertEquals(rang, new Range(5, 10));
+	}
+	
+	@Test
+	/**
+	 * Test isNaNRange with a NaN range.
+	 */
+	public void isNaNRangeTrue()
+	{
+		Range rang = new Range(Double.NaN, Double.NaN);
+		assertEquals(rang.isNaNRange(), true);
 	}
 }
