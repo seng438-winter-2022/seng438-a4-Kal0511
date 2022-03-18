@@ -264,9 +264,9 @@ public class DataUtilitiesTest {
 	@Test
 	/**
 	 * A method for testing the equal(double[][]a, double[][]b) method when the
-	 * inputs have unequal row length.
+	 * inputs have unequal row length, with the second input being longer.
 	 */
-	public void equalForInequalRowLengths() {
+	public void equalForInequalRowLengthsSecondGreater() {
 		double[][] array1 = new double[5][10];
 		double[][] array2 = new double[10][10];
 		for (int i = 0; i < 10; i++) {
@@ -278,13 +278,31 @@ public class DataUtilitiesTest {
 		}
 		assertEquals(DataUtilities.equal(array1, array2), false);
 	}
+	
+	@Test
+	/**
+	 * A method for testing the equal(double[][]a, double[][]b) method when the
+	 * inputs have unequal row length, with the first input being longer.
+	 */
+	public void equalForInequalRowLengthsFirstGreater() {
+		double[][] array1 = new double[10][10];
+		double[][] array2 = new double[5][10];
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (i < 5)
+					array2[i][j] = i * 1.5 + j;
+				array1[i][j] = i * 1.5 + j;
+			}
+		}
+		assertEquals(DataUtilities.equal(array1, array2), false);
+	}
 
 	@Test
 	/**
 	 * A method for testing the equal(double[][]a, double[][]b) method when the
-	 * inputs have unequal column length.
+	 * inputs have unequal column length, with the second input being longer.
 	 */
-	public void equalForInequalColumnLengths() {
+	public void equalForInequalColumnLengthsSecondGreater() {
 		double[][] array1 = new double[10][5];
 		double[][] array2 = new double[10][10];
 		for (int i = 0; i < 10; i++) {
@@ -292,6 +310,24 @@ public class DataUtilitiesTest {
 				if (j < 5)
 					array1[i][j] = i * 1.5 + j;
 				array2[i][j] = i * 1.5 + j;
+			}
+		}
+		assertEquals(DataUtilities.equal(array1, array2), false);
+	}
+	
+	@Test
+	/**
+	 * A method for testing the equal(double[][]a, double[][]b) method when the
+	 * inputs have unequal column length, with the first input being longer.
+	 */
+	public void equalForInequalColumnLengthsFirstGreater() {
+		double[][] array1 = new double[10][10];
+		double[][] array2 = new double[10][5];
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (j < 5)
+					array2[i][j] = i * 1.5 + j;
+				array1[i][j] = i * 1.5 + j;
 			}
 		}
 		assertEquals(DataUtilities.equal(array1, array2), false);
@@ -557,6 +593,93 @@ public class DataUtilitiesTest {
 		double result = DataUtilities.calculateColumnTotal(values, 0);
 		assertEquals("Empty input should return 0", 0, result, .01d);
 	}
+	
+	// calculateColumnTotal validRows
+
+	@Test
+	/**
+	 * A method for testing the calculateColumnTotal(Values2D data, int column,
+	 * int[] validRows) method when the input is null.
+	 */
+	public void calculateColumnTotalValidRowsForNullInput() {
+		int[] validRows = { 0 };
+		boolean exception = false;
+		try {
+			DataUtilities.calculateColumnTotal(null, 0, validRows);
+		} catch (IllegalArgumentException e) {
+			exception = true;
+		}
+		assertEquals("Input is null therefore there should be an error", exception, true);
+	}
+
+	/**
+	 * A method for testing the calculateColumnTotal with valid rows argument the
+	 * input has a null value among them
+	 */
+	@Test
+	public void calculateColumnTotalValidRowsForNullValue() {
+		int[] validRows = { 0, 2 };
+		Values2D values = mockingContext.mock(Values2D.class);
+		mockingContext.checking(new Expectations() {
+			{
+				oneOf(values).getRowCount();
+				will(returnValue(3));
+				oneOf(values).getValue(0, 0);
+				will(returnValue(null));
+				oneOf(values).getValue(1, 0);
+				will(returnValue(2.5));
+				oneOf(values).getValue(2, 0);
+				will(returnValue(1.5));
+
+			}
+		});
+		double result = DataUtilities.calculateColumnTotal(values, 0, validRows);
+		assertEquals(1.5, result, .01d);
+	}
+
+	@Test
+	public void calculateColumnTotalValidRowsForInvalidInput() {
+		int[] validRows = { 0, 2, 3 };
+		Values2D values = mockingContext.mock(Values2D.class);
+		mockingContext.checking(new Expectations() {
+			{
+				oneOf(values).getRowCount();
+				will(returnValue(3));
+				oneOf(values).getValue(0, 0);
+				will(returnValue(2.5));
+				oneOf(values).getValue(1, 0);
+				will(returnValue(null));
+				oneOf(values).getValue(2, 0);
+				will(returnValue(1.5));
+				oneOf(values).getValue(3, 0);
+				will(throwException(new IndexOutOfBoundsException()));
+			}
+		});
+		double result = DataUtilities.calculateColumnTotal(values, 0, validRows);
+		assertEquals(4, result, .01d);
+	}
+	
+	@Test
+	/**
+	 * A method for testing the calculateColumnTotal(Values2D data, int column)
+	 * method when the number of rows is above the boundary of 1.
+	 */
+	public void calculateColumnTotalValidRowsForTwoValues() {
+		int[] validRows = {0, 1};
+		Values2D values = mockingContext.mock(Values2D.class);
+		mockingContext.checking(new Expectations() {
+			{
+				oneOf(values).getRowCount();
+				will(returnValue(2));
+				oneOf(values).getValue(0, 1);
+				will(returnValue(1.25));
+				oneOf(values).getValue(1, 1);
+				will(returnValue(2.5));
+			}
+		});
+		double result = DataUtilities.calculateColumnTotal(values, 1, validRows);
+		assertEquals("First comlum has values 1.25 and 2.5 which resultsin 3.75", 3.75, result, .01d);
+	}
 
 	// clone
 
@@ -743,19 +866,19 @@ public class DataUtilitiesTest {
 			{
 				oneOf(values).getColumnCount();
 				will(returnValue(5));
-				oneOf(values).getValue(0, 0);
+				oneOf(values).getValue(1, 0);
 				will(returnValue(1.25));
-				oneOf(values).getValue(0, 1);
+				oneOf(values).getValue(1, 1);
 				will(returnValue(4.25));
-				oneOf(values).getValue(0, 2);
+				oneOf(values).getValue(1, 2);
 				will(returnValue(2.5));
-				oneOf(values).getValue(0, 3);
+				oneOf(values).getValue(1, 3);
 				will(returnValue(1.0));
-				oneOf(values).getValue(0, 4);
+				oneOf(values).getValue(1, 4);
 				will(returnValue(0.25));
 			}
 		});
-		double result = DataUtilities.calculateRowTotal(values, 0, validColumns);
+		double result = DataUtilities.calculateRowTotal(values, 1, validColumns);
 		assertEquals("Valid columns have values 4.25, 1, and 0.25 which results in 5.5", 5.5, result, .01d);
 	}
 
@@ -776,6 +899,8 @@ public class DataUtilitiesTest {
 				will(returnValue(1.25));
 				oneOf(values).getValue(0, 1);
 				will(returnValue(2.5));
+				oneOf(values).getValue(0, 2);
+				will(throwException(new IndexOutOfBoundsException()));
 			}
 		});
 		double result = DataUtilities.calculateRowTotal(values, 0, validColumns);
@@ -900,68 +1025,5 @@ public class DataUtilitiesTest {
 		double result = DataUtilities.calculateRowTotal(values, 0);
 		assertEquals("Empty input should return 0", 0, result, .01d);
 	}
-
-	// calculateColumnTotal validRows
-
-	@Test
-	/**
-	 * A method for testing the calculateColumnTotal(Values2D data, int column,
-	 * int[] validRows) method when the input is null.
-	 */
-	public void calculateColumnTotalValidRowsForNullInput() {
-		int[] validRows = { 0 };
-		boolean exception = false;
-		try {
-			DataUtilities.calculateColumnTotal(null, 0, validRows);
-		} catch (IllegalArgumentException e) {
-			exception = true;
-		}
-		assertEquals("Input is null therefore there should be an error", exception, true);
-	}
-
-	/**
-	 * A method for testing the calculateColumnTotal with valid rows argument the
-	 * input has a null value among them
-	 */
-	@Test
-	public void calculateColumnTotalValidRowsForNullValue() {
-		int[] validRows = { 0, 2 };
-		Values2D values = mockingContext.mock(Values2D.class);
-		mockingContext.checking(new Expectations() {
-			{
-				oneOf(values).getRowCount();
-				will(returnValue(3));
-				oneOf(values).getValue(0, 0);
-				will(returnValue(null));
-				oneOf(values).getValue(1, 0);
-				will(returnValue(2.5));
-				oneOf(values).getValue(2, 0);
-				will(returnValue(1.5));
-
-			}
-		});
-		double result = DataUtilities.calculateColumnTotal(values, 0, validRows);
-		assertEquals(1.5, result, .01d);
-	}
-
-	@Test
-	public void calculateColumnTotalValidRowsForInvalidInput() {
-		int[] validRows = { 0, 2, 3 };
-		Values2D values = mockingContext.mock(Values2D.class);
-		mockingContext.checking(new Expectations() {
-			{
-				oneOf(values).getRowCount();
-				will(returnValue(3));
-				oneOf(values).getValue(0, 0);
-				will(returnValue(null));
-				oneOf(values).getValue(1, 0);
-				will(returnValue(2.5));
-				oneOf(values).getValue(2, 0);
-				will(returnValue(1.5));
-
-			}
-		});
-		double result = DataUtilities.calculateColumnTotal(values, 0, validRows);
-		assertEquals(1.5, result, .01d);
-	}
 };
+
