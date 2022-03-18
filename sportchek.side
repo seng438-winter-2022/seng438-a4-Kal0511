@@ -336,6 +336,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "a1defb87-677b-4152-8e58-f775d0b0a2ee",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=headerPickupStoreTitle",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "d96400a0-dead-42d4-8280-d55d65af0abe",
       "comment": "",
       "command": "mouseOver",
