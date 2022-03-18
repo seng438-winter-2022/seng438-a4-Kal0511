@@ -415,10 +415,22 @@ public class RangeTest {
 	 * to false and using zero values.
 	 */
 	@Test
-	public void shiftWithNoZeroCrossingWithZeroValues() {
+	public void shiftWithNoZeroCrossingWithZeroValuesNegativeDelta() {
 		Range test = new Range(0, 10);
 		Range result = new Range(-20, 0);
 		test = Range.shift(test, -20, false);
+		assertEquals(test.equals(result), true);
+	}
+	
+	/**
+	 * A method that tests whether the shift method works when setting Zero Crossing
+	 * to false and using zero values.
+	 */
+	@Test
+	public void shiftWithNoZeroCrossingWithZeroValuesPositiveDelta() {
+		Range test = new Range(0, 10);
+		Range result = new Range(20, 30);
+		test = Range.shift(test, 20, false);
 		assertEquals(test.equals(result), true);
 	}
 
@@ -461,6 +473,16 @@ public class RangeTest {
 	}
 
 	// intersects(double b0, double b1)
+	
+	@Test
+	/**
+	 * A method that tests intersects() on boundary condition
+	 */
+	public void intersectsBoundaryCondition() {
+		Range test = new Range(5, 10);
+		assertEquals(test.intersects(5, 5), false);
+	}
+	
 	@Test
 	/**
 	 * A method that tests intersects() when the intersect range to goes from
@@ -689,6 +711,26 @@ public class RangeTest {
 		assertEquals("Combine should result in a range between 5 and 15", expected, result);
 	}
 	
+	@Test
+	public void combineWithOneNanUpperSecondRange() {
+
+		Range rang1 = new Range(10.0, Double.NaN);
+		Range rang2 = new Range(5.0, 15);
+		Range expected = new Range(5.0, 15);;
+		Range result = Range.combineIgnoringNaN(rang1, rang2);
+		assertEquals("Combine should result in a range between 5 and 15", expected, result);
+	}
+	
+	@Test
+	public void combineWithOneNanLowerSecondRange() {
+
+		Range rang1 = new Range(Double.NaN, 10.0);
+		Range rang2 = new Range(5.0, 15);
+		Range expected = new Range(5.0, 15);;
+		Range result = Range.combineIgnoringNaN(rang1, rang2);
+		assertEquals("Combine should result in a range between 5 and 15", expected, result);
+	}
+	
 	/**
 	 * A method testing the combineIgnoringNaN with the second range all NaN and the
 	 * first range null
@@ -744,6 +786,9 @@ public class RangeTest {
 	}
 	
 	// expandToInclude(Range range, double value)
+
+	
+	
 	/**
 	 * A method testing expandToInclude with the value above the range
 	 */
@@ -789,6 +834,7 @@ public class RangeTest {
 	}
 
 	// expand(Range range, double lowerMargin, double upperMargin)
+	
 	/**
 	 * A method testing expand with the lowerbound moving down and the upperbound
 	 * moving up
@@ -949,4 +995,5 @@ public class RangeTest {
 		Range rang = new Range(Double.NaN, Double.NaN);
 		assertEquals(rang.isNaNRange(), true);
 	}
+	
 }
