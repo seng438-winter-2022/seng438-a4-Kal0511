@@ -163,6 +163,13 @@
         ["xpath=//div[2]/div/form/div[2]/div[3]/div[10]/input", "xpath:position"]
       ],
       "value": ""
+    }, {
+      "id": "da29eee8-a0d6-49b2-8ddf-60248f55e9a6",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#gigya-verification-sent-screen .gigya-composite-control-header",
+      "targets": [],
+      "value": "A verification email has been sent to your inbox"
     }]
   }, {
     "id": "351e8a21-82d7-46e8-b1e4-b00637eac3bd",
@@ -324,6 +331,13 @@
         ["xpath=//div[2]/div/form/div[2]/div[3]/div[10]/input", "xpath:position"]
       ],
       "value": ""
+    }, {
+      "id": "235f9af1-2cb6-48d5-942c-4913f060595a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.pwd-cxty-val-err-msg",
+      "targets": [],
+      "value": "Password is not strong enough. Please try again."
     }]
   }, {
     "id": "6dbaceef-1f01-4967-98c9-c77a58e1ccad",
