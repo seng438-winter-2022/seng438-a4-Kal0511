@@ -889,7 +889,7 @@ public class DataUtilitiesTest {
 	 * first and the result is positive.
 	 */
 	public void calculateRowTotalValidColumnsForValidColumnsOutOfRange() {
-		int[] validColumns = { 2 };
+		int[] validColumns = {0,2};
 		Values2D values = mockingContext.mock(Values2D.class);
 		mockingContext.checking(new Expectations() {
 			{
@@ -904,7 +904,7 @@ public class DataUtilitiesTest {
 			}
 		});
 		double result = DataUtilities.calculateRowTotal(values, 0, validColumns);
-		assertEquals("No valid columns, result is 0", 0, result, .01d);
+		assertEquals("First column valid, result is 1.25", 1.25, result, .01d);
 	}
 
 	// calculateRowTotal (2 parameters)
