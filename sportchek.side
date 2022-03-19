@@ -694,15 +694,15 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "0cc9afeb-553a-4396-affd-141686b525d6",
+      "id": "26fda154-6cd8-42d7-9699-eb9984a8270a",
       "comment": "",
       "command": "click",
-      "target": "css=.owl-item:nth-child(2) .lazyOwl",
+      "target": "css=.product-grid__list-item:nth-child(4) .product-grid-image",
       "targets": [
-        ["css=.owl-item:nth-child(2) .lazyOwl", "css:finder"],
-        ["xpath=//img[@alt=\"Nike Men's ZoomX Vaporfly Next 2 Running Shoes\"]", "xpath:img"],
-        ["xpath=//main[@id='main-content']/div/div[3]/div/div/div/div/div[2]/div/div[2]/div/div/div/div/span/a/img", "xpath:idRelative"],
-        ["xpath=//div[2]/div/div/div/div/span/a/img", "xpath:position"]
+        ["css=.product-grid__list-item:nth-child(4) .product-grid-image", "css:finder"],
+        ["xpath=//img[@alt=\"Nike Women's Court Royale 2 Shoes - White/Whitewhite/White\"]", "xpath:img"],
+        ["xpath=//main[@id='main-content']/div/div[3]/div[2]/div/ul/li[4]/div/div/div/a/img", "xpath:idRelative"],
+        ["xpath=//li[4]/div/div/div/a/img", "xpath:position"]
       ],
       "value": ""
     }]
